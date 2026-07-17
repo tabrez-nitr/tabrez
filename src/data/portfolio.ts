@@ -5,9 +5,9 @@ export const personalInfo = {
   email: "tabreznitr@gmail.com",
   location: "India",
   resumeUrl: "#",
-  avatar: "/images/githubpfp.png",
+  avatar: "/images/pfp_2.jpeg",
   bannerLight: "/images/banner-light.png",
-  bannerDark: "/images/banner-dark.png",
+  bannerDark: "",
 };
 
 export const socials = [

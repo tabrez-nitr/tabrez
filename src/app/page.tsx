@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import { useState, useEffect, useRef, type ReactNode } from "react";
+import { useTheme } from "next-themes";
+import { GitHubCalendar } from "react-github-calendar";
 import {
   personalInfo,
   socials,
@@ -123,6 +125,7 @@ function SectionHeader({
 
 /* ========= MAIN PAGE ========= */
 export default function Home() {
+  const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [time, setTime] = useState("");
   const [activeProjectIdx, setActiveProjectIdx] = useState(0);
@@ -218,7 +221,7 @@ export default function Home() {
                     width={92}
                     height={92}
                     className="block w-[84px] h-[84px] sm:w-[92px] sm:h-[92px] object-cover"
-                    style={{ imageRendering: "auto" }}
+                    style={{ imageRendering: "pixelated" }}
                     priority
                     referrerPolicy="no-referrer"
                   />
@@ -260,7 +263,7 @@ export default function Home() {
               {personalInfo.bio}
             </p>
 
-            <div className="flex items-center gap-2.5 flex-wrap">
+            <div className="flex items-center gap-5 flex-wrap">
               <a
                 href={`mailto:${personalInfo.email}`}
                 className="n-btn hover:n-btn-primary"
@@ -277,8 +280,8 @@ export default function Home() {
             {/* X-style hairline before socials */}
             <div className="x-line my-6" />
 
-            <div className="flex flex-wrap items-center gap-3">
-              <span className="coord-label mr-2 hidden sm:inline">SOCIAL</span>
+            <div className="flex flex-wrap items-center gap-5">
+              <span className="coord-label mr-3 hidden sm:inline">SOCIAL</span>
               {socials.map((s) => {
                 const Icon = socialIcons[s.icon];
                 return (
@@ -562,11 +565,95 @@ export default function Home() {
           </section>
         </FadeIn>
 
-        {/* ===== CONNECT ===== */}
+        {/* ===== GITHUB ACTIVITY ===== */}
         <FadeIn index={4}>
           <section className="x-row py-10 px-5 sm:py-16 sm:px-7">
             <SectionHeader
-              code="SEC_04 / LINK"
+              code="SEC_04 / ACTIVITY"
+              title="GITHUB"
+              pattern={[1, 5, 9, 13, 17, 21]}
+            />
+            
+            <div className="flex flex-col mb-8">
+              <div className="grid grid-cols-3 border border-[var(--border)] divide-x divide-[var(--border)]">
+                <div className="p-4 sm:p-5 flex flex-col gap-2">
+                  <div className="flex items-center gap-2 text-xs n-mono uppercase" style={{ color: "var(--fg-muted)" }}>
+                    <span className="w-1.5 h-1.5 bg-red-700"></span>
+                    Contributions
+                  </div>
+                  <div className="text-3xl font-bold tracking-tight">391</div>
+                </div>
+                <div className="p-4 sm:p-5 flex flex-col gap-2">
+                  <div className="flex items-center gap-2 text-xs n-mono uppercase" style={{ color: "var(--fg-muted)" }}>
+                    <span className="w-1.5 h-1.5 bg-red-700"></span>
+                    Best Day
+                  </div>
+                  <div className="text-3xl font-bold tracking-tight">21 <span className="text-sm font-normal text-[var(--fg-muted)]">commits</span></div>
+                </div>
+                <div className="p-4 sm:p-5 flex flex-col gap-2">
+                  <div className="flex items-center gap-2 text-xs n-mono uppercase" style={{ color: "var(--fg-muted)" }}>
+                    <span className="w-1.5 h-1.5 bg-red-700"></span>
+                    Active Days
+                  </div>
+                  <div className="text-3xl font-bold tracking-tight">101 <span className="text-sm font-normal text-[var(--fg-muted)]">days</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div className="relative pt-6 pb-6">
+              {/* Corner Brackets */}
+              <div className="absolute top-0 left-0 w-3 h-3 border-t border-l border-[var(--fg-muted)]"></div>
+              <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-[var(--fg-muted)]"></div>
+              <div className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-[var(--fg-muted)]"></div>
+              <div className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-[var(--fg-muted)]"></div>
+
+              <div className="overflow-x-auto hide-scrollbar">
+                <div className="min-w-[750px] px-2">
+                  {mounted && (
+                    <GitHubCalendar
+                      username="tabrez-nitr"
+                      colorScheme={theme === "light" ? "light" : "dark"}
+                      showTotalCount={false}
+                      theme={{
+                        dark: [
+                          "rgba(255,255,255,0.1)",
+                          "rgba(255,255,255,0.3)",
+                          "rgba(255,255,255,0.5)",
+                          "rgba(255,255,255,0.7)",
+                          "rgba(255,255,255,1)",
+                        ],
+                        light: [
+                          "rgba(0,0,0,0.05)",
+                          "rgba(0,0,0,0.25)",
+                          "rgba(0,0,0,0.5)",
+                          "rgba(0,0,0,0.75)",
+                          "rgba(0,0,0,1)",
+                        ],
+                      }}
+                      style={{
+                        color: "var(--fg-muted)",
+                      }}
+                    />
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="flex justify-between items-center mt-6 text-xs n-mono" style={{ color: "var(--fg-muted)" }}>
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full border border-[var(--fg-muted)]"></span>
+                @tabrez-nitr
+              </div>
+              <div className="uppercase">Last 12 Months</div>
+            </div>
+          </section>
+        </FadeIn>
+
+        {/* ===== CONNECT ===== */}
+        <FadeIn index={5}>
+          <section className="x-row py-10 px-5 sm:py-16 sm:px-7">
+            <SectionHeader
+              code="SEC_05 / LINK"
               title="CONNECT"
               pattern={[0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24]}
             />
