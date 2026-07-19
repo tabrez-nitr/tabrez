@@ -132,9 +132,37 @@ export default function Home() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [projectKey, setProjectKey] = useState(0);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  
+  const [githubStats, setGithubStats] = useState({
+    totalContributions: 391,
+    bestDay: 21,
+    activeDays: 101,
+  });
 
   useEffect(() => {
     setMounted(true);
+    
+    // Fetch GitHub stats
+    fetch("https://github-contributions-api.deno.dev/tabrez-nitr.json")
+      .then((res) => res.json())
+      .then((data) => {
+        let bestDay = 0;
+        let activeDays = 0;
+        if (data && data.contributions) {
+          data.contributions.forEach((week: any) => {
+            week.forEach((day: any) => {
+              if (day.contributionCount > 0) activeDays++;
+              if (day.contributionCount > bestDay) bestDay = day.contributionCount;
+            });
+          });
+          setGithubStats({
+            totalContributions: data.totalContributions || 391,
+            bestDay,
+            activeDays,
+          });
+        }
+      })
+      .catch((err) => console.error("Error fetching GitHub stats:", err));
     const tick = () =>
       setTime(
         new Date().toLocaleTimeString("en-US", {
@@ -221,7 +249,12 @@ export default function Home() {
                     width={92}
                     height={92}
                     className="block w-[84px] h-[84px] sm:w-[92px] sm:h-[92px] object-cover"
-                    style={{ imageRendering: "pixelated" }}
+                    style={{ 
+                      WebkitMaskImage: "radial-gradient(circle, black 60%, transparent 60%)",
+                      maskImage: "radial-gradient(circle, black 60%, transparent 60%)",
+                      WebkitMaskSize: "2px 2px",
+                      maskSize: "2px 2px"
+                    }}
                     priority
                     referrerPolicy="no-referrer"
                   />
@@ -232,13 +265,12 @@ export default function Home() {
                   aria-hidden
                 />
               </div>
-
               <div className="pt-0.5 min-w-0 flex-1">
                 <div className="flex items-center gap-2 mb-3">
                   <div className="red-line" />
                   <span className="coord-label">SEC_01 / ID</span>
                 </div>
-                <h1 className="n-heading text-3xl sm:text-4xl mb-2 break-words">
+                <h1 className="n-heading text-lg sm:text-4xl mb-2 break-words">
                   {personalInfo.name}
                 </h1>
                 <p className="n-mono mb-2" style={{ color: "var(--fg-muted)" }}>
@@ -575,27 +607,27 @@ export default function Home() {
             />
             
             <div className="flex flex-col mb-8">
-              <div className="grid grid-cols-3 border border-[var(--border)] divide-x divide-[var(--border)]">
+              <div className="grid grid-cols-1 sm:grid-cols-3 border border-[var(--border)] divide-y sm:divide-y-0 sm:divide-x divide-[var(--border)]">
                 <div className="p-4 sm:p-5 flex flex-col gap-2">
                   <div className="flex items-center gap-2 text-xs n-mono uppercase" style={{ color: "var(--fg-muted)" }}>
-                    <span className="w-1.5 h-1.5 bg-red-700"></span>
+                    <span className="w-1.5 h-1.5 bg-red-700 shrink-0"></span>
                     Contributions
                   </div>
-                  <div className="text-3xl font-bold tracking-tight">391</div>
+                  <div className="text-3xl font-bold tracking-tight">{githubStats.totalContributions}</div>
                 </div>
                 <div className="p-4 sm:p-5 flex flex-col gap-2">
                   <div className="flex items-center gap-2 text-xs n-mono uppercase" style={{ color: "var(--fg-muted)" }}>
-                    <span className="w-1.5 h-1.5 bg-red-700"></span>
+                    <span className="w-1.5 h-1.5 bg-red-700 shrink-0"></span>
                     Best Day
                   </div>
-                  <div className="text-3xl font-bold tracking-tight">21 <span className="text-sm font-normal text-[var(--fg-muted)]">commits</span></div>
+                  <div className="text-3xl font-bold tracking-tight">{githubStats.bestDay} <span className="text-sm font-normal text-[var(--fg-muted)]">commits</span></div>
                 </div>
                 <div className="p-4 sm:p-5 flex flex-col gap-2">
                   <div className="flex items-center gap-2 text-xs n-mono uppercase" style={{ color: "var(--fg-muted)" }}>
-                    <span className="w-1.5 h-1.5 bg-red-700"></span>
+                    <span className="w-1.5 h-1.5 bg-red-700 shrink-0"></span>
                     Active Days
                   </div>
-                  <div className="text-3xl font-bold tracking-tight">101 <span className="text-sm font-normal text-[var(--fg-muted)]">days</span></div>
+                  <div className="text-3xl font-bold tracking-tight">{githubStats.activeDays} <span className="text-sm font-normal text-[var(--fg-muted)]">days</span></div>
                 </div>
               </div>
             </div>
@@ -623,11 +655,11 @@ export default function Home() {
                           "rgba(255,255,255,1)",
                         ],
                         light: [
-                          "rgba(0,0,0,0.05)",
-                          "rgba(0,0,0,0.25)",
-                          "rgba(0,0,0,0.5)",
-                          "rgba(0,0,0,0.75)",
-                          "rgba(0,0,0,1)",
+                          "#ebedf0",
+                          "#d4d4d4",
+                          "#a3a3a3",
+                          "#525252",
+                          "#171717",
                         ],
                       }}
                       style={{
