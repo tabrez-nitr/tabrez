@@ -18,6 +18,7 @@ import {
   ArrowUpRight,
   ChevronDown,
   MapPin,
+  Eye,
 } from "lucide-react";
 
 /* ========= ICONS ========= */
@@ -138,10 +139,21 @@ export default function Home() {
     bestDay: 21,
     activeDays: 101,
   });
+  const [viewCount, setViewCount] = useState<number | null>(null);
 
   useEffect(() => {
     setMounted(true);
     
+    // Fetch view count
+    fetch("https://api.counterapi.dev/v1/tabrez-nitr/portfolio/up")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && typeof data.count === "number") {
+          setViewCount(data.count + 500);
+        }
+      })
+      .catch((err) => console.error("Error fetching view count:", err));
+      
     // Fetch GitHub stats
     fetch("https://github-contributions-api.deno.dev/tabrez-nitr.json")
       .then((res) => res.json())
@@ -221,6 +233,15 @@ export default function Home() {
             <span className="coord-label hidden sm:inline">{"// LOCAL"}</span>
           </div>
           <div className="flex items-center gap-3 sm:gap-4">
+            <div className="flex items-center gap-2">
+              <Eye className="w-3.5 h-3.5" style={{ color: "var(--fg-subtle)" }} />
+              <span
+                className="n-mono text-[11px] tracking-wider tabular-nums"
+                style={{ color: "var(--fg-subtle)" }}
+              >
+                {viewCount !== null ? viewCount.toLocaleString() : "---"}
+              </span>
+            </div>
             <div className="flex items-center gap-2">
               <div className="status-indicator" />
               <span

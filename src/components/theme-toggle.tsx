@@ -23,9 +23,19 @@ export function ThemeToggle() {
 
   const isDark = theme === "dark";
 
+  const handleToggle = () => {
+    try {
+      const audio = new Audio("/click_sound.mp3");
+      audio.play().catch((err) => console.error("Error playing sound:", err));
+    } catch (err) {
+      console.error("Audio not supported:", err);
+    }
+    setTheme(isDark ? "light" : "dark");
+  };
+
   return (
     <button
-      onClick={() => setTheme(isDark ? "light" : "dark")}
+      onClick={handleToggle}
       className="n-icon-btn group"
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
       type="button"
