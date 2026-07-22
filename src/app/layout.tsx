@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   title: "SAMS TABREZ — SOFTWARE ENGINEER",
   description:
     "Software Engineer crafting modern web experiences. TypeScript. React. Node.js.",
-  keywords: ["Sam Stabrez", "Software Engineer", "Portfolio", "Developer"],
+  keywords: ["Sams tabrez", "Software Engineer", "Portfolio", "Developer"],
   authors: [{ name: "Sam Stabrez" }],
   creator: "Sam Stabrez",
   robots: "index, follow",

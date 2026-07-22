@@ -9,7 +9,7 @@ const FigmaCursor = dynamic(() => import("@/components/figma-cursor").then(m => 
 
 export function ClientWrappers({ children }: { children: ReactNode }) {
   return (
-    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange={false}>
+    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
       <GlyphBackground />
       <FigmaCursor />
       {children}

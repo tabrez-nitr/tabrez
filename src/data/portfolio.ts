@@ -5,7 +5,7 @@ export const personalInfo = {
   email: "tabreznitr@gmail.com",
   location: "India",
   resumeUrl: "#",
-  avatar: "/images/pfp_2.jpeg",
+  avatar: "/pfp_github.jpg",
   bannerLight: "/images/banner-light.png",
   bannerDark: "",
 };
@@ -156,6 +156,7 @@ export const techStack: TechCategory[] = [
       { name: "Git", icon: "devicon-git-plain" },
       { name: "Docker", icon: "devicon-docker-plain" },
       { name: "VS Code", icon: "devicon-vscode-plain" },
+      { name: "Obsidian", icon: "ri-markdown-line" },
     ],
   },
   {

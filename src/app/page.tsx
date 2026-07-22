@@ -264,21 +264,23 @@ export default function Home() {
             <div className="flex items-start gap-5 sm:gap-6 mb-6">
               <div className="relative shrink-0">
                 <div className="n-card p-[3px]" style={{ width: "fit-content" }}>
-                  <Image
-                    src={personalInfo.avatar}
-                    alt={`${personalInfo.name} profile`}
-                    width={92}
-                    height={92}
-                    className="block w-[84px] h-[84px] sm:w-[92px] sm:h-[92px] object-cover"
-                    style={{ 
-                      WebkitMaskImage: "radial-gradient(circle, black 60%, transparent 60%)",
-                      maskImage: "radial-gradient(circle, black 60%, transparent 60%)",
-                      WebkitMaskSize: "2px 2px",
-                      maskSize: "2px 2px"
-                    }}
-                    priority
-                    referrerPolicy="no-referrer"
-                  />
+                  <div className="bg-[#111] dark:bg-transparent">
+                    <Image
+                      src={personalInfo.avatar}
+                      alt={`${personalInfo.name} profile`}
+                      width={92}
+                      height={92}
+                      className="block w-[84px] h-[84px] sm:w-[92px] sm:h-[92px] object-cover"
+                      style={{ 
+                        WebkitMaskImage: "radial-gradient(circle, black 60%, transparent 60%)",
+                        maskImage: "radial-gradient(circle, black 60%, transparent 60%)",
+                        WebkitMaskSize: "2px 2px",
+                        maskSize: "2px 2px"
+                      }}
+                      priority
+                      referrerPolicy="no-referrer"
+                    />
+                  </div>
                 </div>
                 <div
                   className="absolute -bottom-1 -right-1 w-3 h-3 border-r-2 border-b-2"

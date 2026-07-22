@@ -25,12 +25,19 @@ export function ThemeToggle() {
 
   const handleToggle = () => {
     try {
-      const audio = new Audio("/click_sound.mp3");
+      const audio = new Audio("/nothing_os_ringtone2.mp3");
       audio.play().catch((err) => console.error("Error playing sound:", err));
     } catch (err) {
       console.error("Audio not supported:", err);
     }
-    setTheme(isDark ? "light" : "dark");
+    
+    if (document.startViewTransition) {
+      document.startViewTransition(() => {
+        setTheme(isDark ? "light" : "dark");
+      });
+    } else {
+      setTheme(isDark ? "light" : "dark");
+    }
   };
 
   return (
